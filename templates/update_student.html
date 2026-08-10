@@ -1,0 +1,16 @@
+<form action="" method="post">
+
+    {% csrf_token %}
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="{{ student.name }}" required>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" value="{{ student.age }}" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="{{ student.email }}" required>
+
+    <button type="submit">Update Student</button>
+
+</form>

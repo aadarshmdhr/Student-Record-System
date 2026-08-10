@@ -22,3 +22,32 @@ def delete_student(request, pk):
     student = Student.objects.get(pk=pk)
     student.delete()
     return HttpResponseRedirect("/")
+
+
+def create_student(request):
+    if request.method == "GET":
+        return render(request, "create_student.html")
+    else:
+        Student.objects.create(
+            name=request.POST["name"],
+            age=request.POST["age"],
+            email=request.POST["email"],
+        )
+        return HttpResponseRedirect(("/"))
+
+
+def update_student(request, id):
+    if request.method == "GET":
+        student = Student.objects.get(id=id)
+        return render(
+            request, 
+            "update_student.html", 
+            {"student": student}
+        )
+    else:
+        student = Student.objects.get(id=id)
+        student.name = request.POST["name"]
+        student.age = request.POST["age"]
+        student.email = request.POST["email"]
+        student.save()
+        return HttpResponseRedirect(("/"))
