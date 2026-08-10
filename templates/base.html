@@ -12,7 +12,7 @@
 
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
 
     <!-- Bootstrap Icons -->
@@ -486,7 +486,9 @@
             <div>
 
                 <h1>
-                    <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                    <a href="/">
+                        <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                    </a>
                     Student Records
                 </h1>
 
@@ -678,46 +680,6 @@
 
             </div>
 
-
-            {% empty %}
-
-
-            <!-- Empty State -->
-
-            <div class="col-12">
-
-                <div class="empty-state">
-
-                    <div class="empty-icon">
-
-                        <i class="bi bi-people"></i>
-
-                    </div>
-
-
-                    <h3 class="fw-bold mt-3">
-                        No Students Found
-                    </h3>
-
-
-                    <p class="text-muted">
-                        There are currently no students registered.
-                    </p>
-
-
-                    <a href="create/" class="btn btn-primary">
-
-                        <i class="bi bi-person-plus-fill me-2"></i>
-
-                        Add First Student
-
-                    </a>
-
-                </div>
-
-            </div>
-
-
             {% endfor %}
 
             <div class="container py-5">
@@ -734,9 +696,7 @@
 
         <!-- Bootstrap JS -->
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-            </script>
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
 
 </body>
