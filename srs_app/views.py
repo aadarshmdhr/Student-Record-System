@@ -12,7 +12,7 @@ def student_list(request):
     students = Student.objects.all()
     return render(
         request,
-        "student_list.html",
+        "base.html",
         {"students": students},
     )
 
