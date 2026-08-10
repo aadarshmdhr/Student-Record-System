@@ -1,24 +1,491 @@
-<!doctype html>
+{% load static %}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Records</title>
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <!-- Custom CSS -->
+    <style>
+        /* =========================================
+           BODY / PAGE BACKGROUND
+        ========================================= */
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background: linear-gradient(135deg,
+                    #eef5ff 0%,
+                    #f8f9fc 50%,
+                    #f1edff 100%);
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            color: #212529;
+        }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
+
+        .main-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 50px 20px;
+        }
+
+
+        /* =========================================
+           PAGE HEADER
+        ========================================= */
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 25px 30px;
+
+            margin-bottom: 25px;
+
+            background: rgba(255, 255, 255, 0.9);
+
+            border-radius: 20px;
+
+            border: 1px solid rgba(255, 255, 255, 0.8);
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+
+        .page-header h1 {
+            font-size: 32px;
+            margin: 0;
+
+            color: #172033;
+        }
+
+
+        .page-header p {
+            margin-top: 5px;
+        }
+
+
+        /* =========================================
+           CREATE BUTTON
+        ========================================= */
+
+        .create-student-btn {
+            padding: 11px 20px;
+
+            border: none;
+            border-radius: 10px;
+
+            font-weight: 600;
+
+            background: linear-gradient(135deg,
+                    #0d6efd,
+                    #6610f2);
+
+            box-shadow:
+                0 6px 15px rgba(13, 110, 253, 0.25);
+
+            transition: 0.3s;
+        }
+
+
+        .create-student-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 20px rgba(13, 110, 253, 0.3);
+        }
+
+
+        /* =========================================
+           STUDENT SUMMARY
+        ========================================= */
+
+        .student-summary {
+            display: flex;
+            align-items: center;
+
+            padding: 18px 22px;
+
+            margin-bottom: 30px;
+
+            background: rgba(255, 255, 255, 0.9);
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 6px 20px rgba(0, 0, 0, 0.05);
+        }
+
+
+        .summary-content {
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+        }
+
+
+        .summary-icon {
+            width: 50px;
+            height: 50px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: #e7f1ff;
+
+            color: #0d6efd;
+
+            font-size: 22px;
+        }
+
+
+        /* =========================================
+           STUDENT CARD
+        ========================================= */
+
+        .student-card {
+            height: 100%;
+
+            background: #ffffff;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            border: 1px solid #e9edf5;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.07);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+
+        .student-card:hover {
+            transform: translateY(-7px);
+
+            box-shadow:
+                0 18px 40px rgba(0, 0, 0, 0.12);
+        }
+
+
+        /* =========================================
+           STUDENT HEADER
+        ========================================= */
+
+        .student-header {
+            padding-top: 30px;
+        }
+
+
+        /* =========================================
+           AVATAR
+        ========================================= */
+
+        .student-avatar {
+            width: 80px;
+            height: 80px;
+
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: linear-gradient(135deg,
+                    #0d6efd,
+                    #6610f2);
+
+            color: white;
+
+            font-size: 30px;
+            font-weight: 700;
+
+            box-shadow:
+                0 8px 20px rgba(13, 110, 253, 0.25);
+        }
+
+
+        /* =========================================
+           STUDENT NAME
+        ========================================= */
+
+        .student-name {
+            margin-top: 15px;
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            text-align: center;
+
+            color: #172033;
+        }
+
+
+        /* =========================================
+           STUDENT BADGE
+        ========================================= */
+
+        .student-badge {
+            display: inline-block;
+
+            margin-top: 5px;
+
+            padding: 6px 13px;
+
+            border-radius: 20px;
+
+            background: #e7f1ff;
+
+            color: #0d6efd;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================================
+           INFORMATION
+        ========================================= */
+
+        .student-info {
+            margin-top: 20px;
+        }
+
+
+        .info-item {
+            display: flex;
+            align-items: center;
+
+            gap: 14px;
+
+            padding: 13px;
+
+            margin-bottom: 10px;
+
+            background: #f7f9fc;
+
+            border: 1px solid #edf0f5;
+
+            border-radius: 13px;
+
+            transition: 0.2s;
+        }
+
+
+        .info-item:hover {
+            background: #eef4ff;
+
+            border-color: #d9e6ff;
+        }
+
+
+        .info-icon {
+            width: 43px;
+            height: 43px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background: #ffffff;
+
+            color: #0d6efd;
+
+            box-shadow:
+                0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+
+        .info-content {
+            min-width: 0;
+        }
+
+
+        .info-content small {
+            display: block;
+
+            color: #8993a4;
+
+            font-size: 12px;
+
+            margin-bottom: 2px;
+        }
+
+
+        .info-content p {
+            margin: 0;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #273142;
+
+            overflow-wrap: anywhere;
+        }
+
+
+        /* =========================================
+           CARD FOOTER
+        ========================================= */
+
+        .student-card .card-footer {
+            padding: 0 20px 20px;
+
+            background: transparent;
+
+            border: none;
+        }
+
+
+        /* =========================================
+           ACTION BUTTONS
+        ========================================= */
+
+        .action-btn {
+            padding: 9px;
+
+            border-radius: 10px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================================
+           EMPTY STATE
+        ========================================= */
+
+        .empty-state {
+            padding: 70px 20px;
+
+            background: white;
+
+            border-radius: 20px;
+
+            border: 2px dashed #dce2eb;
+
+            text-align: center;
+        }
+
+
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #eef2f7;
+
+            color: #8792a5;
+
+            font-size: 32px;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 768px) {
+
+            .main-container {
+                padding: 25px 15px;
+            }
+
+            .page-header {
+                flex-direction: column;
+
+                align-items: stretch;
+
+                gap: 20px;
+            }
+
+            .create-student-btn {
+                width: 100%;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+        }
+    </style>
 
 </head>
 
-<body>
-    <div class="container py-5">
 
-        <!-- Page Header -->
-        <div class="page-header mb-5">
+<body>
+
+
+    <div class="main-container">
+
+
+        <!-- =========================================
+         PAGE HEADER
+    ========================================= -->
+
+        <div class="page-header">
 
             <div>
-                <h1 class="fw-bold mb-1">
+
+                <h1>
                     <i class="bi bi-mortarboard-fill text-primary me-2"></i>
                     Student Records
                 </h1>
@@ -26,7 +493,9 @@
                 <p class="text-muted mb-0">
                     Manage and view all registered students
                 </p>
+
             </div>
+
 
             <a href="create/" class="btn btn-primary create-student-btn">
                 <i class="bi bi-person-plus-fill me-2"></i>
@@ -36,152 +505,235 @@
         </div>
 
 
-        <!-- Student Count -->
-        <div class="student-summary mb-4">
-            <div>
-                <span class="summary-icon">
+
+        <!-- =========================================
+         STUDENT COUNT
+    ========================================= -->
+
+        <div class="student-summary">
+
+            <div class="summary-content">
+
+                <div class="summary-icon">
                     <i class="bi bi-people-fill"></i>
-                </span>
+                </div>
 
                 <div>
-                    <small class="text-muted">Total Students</small>
-                    <h4 class="mb-0 fw-bold">{{ students|length }}</h4>
+
+                    <small class="text-muted">
+                        Total Students
+                    </small>
+
+                    <h4 class="mb-0 fw-bold">
+                        {{ students|length }}
+                    </h4>
+
                 </div>
+
             </div>
+
         </div>
 
 
-        <!-- Student Cards -->
-        <div class="row">
+
+        <!-- =========================================
+         STUDENT CARDS
+    ========================================= -->
+
+        <div class="row g-4">
+
 
             {% for student in students %}
 
-            <div class="col-md-6 col-lg-4 mb-4">
+            <div class="col-md-6 col-lg-4">
 
-                <div class="card student-card h-100 border-0">
+
+                <div class="student-card">
+
 
                     <!-- Student Header -->
-                    <div class="student-header text-center pt-4">
+
+                    <div class="student-header text-center">
 
                         <div class="student-avatar">
                             {{ student.name|first|upper }}
                         </div>
 
-                        <h4 class="mt-3 mb-1 fw-bold text-dark">
-                            {{ student.name }}
-                        </h4>
 
-                        <span class="badge student-badge">
+                        <div class="student-name">
+                            {{ student.name }}
+                        </div>
+
+
+                        <span class="student-badge">
+
                             <i class="bi bi-person-check-fill me-1"></i>
+
                             Student
+
                         </span>
 
                     </div>
 
 
-                    <!-- Student Information -->
+
+                    <!-- Information -->
+
                     <div class="card-body px-4">
 
                         <div class="student-info">
 
+
                             <!-- Age -->
+
                             <div class="info-item">
 
                                 <div class="info-icon">
+
                                     <i class="bi bi-calendar3"></i>
+
                                 </div>
 
+
                                 <div class="info-content">
-                                    <small>Age</small>
-                                    <p>{{ student.age }} years</p>
+
+                                    <small>
+                                        Age
+                                    </small>
+
+                                    <p>
+                                        {{ student.age }} years
+                                    </p>
+
                                 </div>
 
                             </div>
+
 
 
                             <!-- Email -->
+
                             <div class="info-item">
 
                                 <div class="info-icon">
+
                                     <i class="bi bi-envelope"></i>
+
                                 </div>
 
+
                                 <div class="info-content">
-                                    <small>Email Address</small>
-                                    <p class="text-break">
+
+                                    <small>
+                                        Email Address
+                                    </small>
+
+                                    <p>
                                         {{ student.email }}
                                     </p>
+
                                 </div>
 
                             </div>
+
 
                         </div>
 
                     </div>
 
 
-                    <!-- Card Actions -->
+
+                    <!-- Actions -->
+
                     <div class="card-footer">
 
                         <div class="d-flex gap-2">
 
+
                             <a href="update/{{ student.id }}/" class="btn btn-outline-primary flex-fill action-btn">
+
                                 <i class="bi bi-pencil-square me-1"></i>
+
                                 Edit
+
                             </a>
 
+
                             <a href="delete/{{ student.pk }}/" class="btn btn-outline-danger flex-fill action-btn">
+
                                 <i class="bi bi-trash3 me-1"></i>
+
                                 Delete
+
                             </a>
+
 
                         </div>
 
                     </div>
 
+
                 </div>
+
 
             </div>
 
+
             {% empty %}
 
+
             <!-- Empty State -->
+
             <div class="col-12">
 
-                <div class="empty-state text-center">
+                <div class="empty-state">
 
                     <div class="empty-icon">
+
                         <i class="bi bi-people"></i>
+
                     </div>
+
 
                     <h3 class="fw-bold mt-3">
                         No Students Found
                     </h3>
 
+
                     <p class="text-muted">
-                        There are currently no students registered in the system.
+                        There are currently no students registered.
                     </p>
 
+
                     <a href="create/" class="btn btn-primary">
+
                         <i class="bi bi-person-plus-fill me-2"></i>
+
                         Add First Student
+
                     </a>
 
                 </div>
 
             </div>
 
+
             {% endfor %}
+
 
         </div>
 
     </div>
 
 
+
     <!-- Bootstrap JS -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
         </script>
+
+
 </body>
 
 </html>
